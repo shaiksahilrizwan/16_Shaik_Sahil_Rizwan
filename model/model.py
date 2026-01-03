@@ -40,11 +40,11 @@ def get_device_recommendation(user_input: dict) -> dict:
     """
     
     # --- CONFIGURATION (Pre-defined paths and keys) ---
-    TRAIN_PATH = "./data/train.csv"
-    TEST_PATH = "./data/test.csv"
+    TRAIN_PATH = "model/data/train.csv"
+    TEST_PATH = "model/data/test.csv"
     
     # REPLACE THIS WITH YOUR ACTUAL KEY
-    API_KEY = ""  
+    API_KEY = "AIzaSyDo8UX081ZV9XwbfQ_t82wwkmwpDTEBR5Q"  
     
     # -----------------------------------------------------------
     # PHASE 1: Initialization (Run Only Once)
