@@ -44,7 +44,7 @@ def get_device_recommendation(user_input: dict) -> dict:
     TEST_PATH = "./data/test.csv"
     
     # REPLACE THIS WITH YOUR ACTUAL KEY
-    API_KEY = "AIzaSyDo8UX081ZV9XwbfQ_t82wwkmwpDTEBR5Q"  
+    API_KEY = ""  
     
     # -----------------------------------------------------------
     # PHASE 1: Initialization (Run Only Once)
