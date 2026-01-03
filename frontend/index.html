@@ -5,88 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Device Recommender</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for better UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📱 AI Phone Assistant</h1>
-            <p>Find the perfect device based on specs and your intent.</p>
+            <div class="logo">📱 AI Assistant</div>
+            <h1>Smart Device Recommender</h1>
+            <p>Enter your requirements and let our Hybrid RAG system find the best match.</p>
         </header>
 
         <main>
             <!-- Input Form -->
-            <section class="form-section">
+            <section class="card form-section">
                 <form id="recForm">
                     
                     <!-- 1. Budget Selection -->
                     <div class="form-group">
-                        <label>Budget Range (Select multiple)</label>
+                        <label>Select Price Tier</label>
                         <div class="checkbox-group">
                             <label class="checkbox-btn">
-                                <input type="checkbox" name="budget" value="0"> Low Cost
+                                <input type="checkbox" name="budget" value="0">
+                                <span>$ Low</span>
                             </label>
                             <label class="checkbox-btn">
-                                <input type="checkbox" name="budget" value="1"> Medium
+                                <input type="checkbox" name="budget" value="1">
+                                <span>$$ Medium</span>
                             </label>
                             <label class="checkbox-btn">
-                                <input type="checkbox" name="budget" value="2"> High End
+                                <input type="checkbox" name="budget" value="2">
+                                <span>$$$ High</span>
                             </label>
                             <label class="checkbox-btn">
-                                <input type="checkbox" name="budget" value="3"> Premium
+                                <input type="checkbox" name="budget" value="3">
+                                <span>$$$$ Premium</span>
                             </label>
                         </div>
                     </div>
 
-                    <!-- 2. Hard Constraints -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="minRam">Min RAM (MB)</label>
-                            <input type="number" id="minRam" placeholder="e.g. 3000">
+                    <div class="row">
+                        <!-- 2. Min RAM -->
+                        <div class="form-group half">
+                            <label for="minRam">Minimum RAM (MB)</label>
+                            <input type="number" id="minRam" placeholder="e.g. 4000" min="0">
                         </div>
-                        <div class="form-group toggle-group">
+                        
+                        <!-- 3. 4G Toggle -->
+                        <div class="form-group half toggle-container">
                             <label class="switch">
                                 <input type="checkbox" id="require4G">
-                                <span class="slider round"></span>
+                                <span class="slider"></span>
                             </label>
-                            <span class="toggle-label">Requires 4G</span>
+                            <span class="label-text">Must have 4G</span>
                         </div>
                     </div>
 
-                    <!-- 3. User Intent (Text) -->
+                    <!-- 4. User Intent -->
                     <div class="form-group">
                         <label for="userIntent">Describe your needs</label>
-                        <textarea id="userIntent" rows="4" placeholder="I need a phone for gaming that doesn't overheat..."></textarea>
+                        <textarea id="userIntent" rows="3" placeholder="e.g. I need a lightweight phone for gaming and travel..." required></textarea>
                     </div>
 
-                    <button type="submit" id="submitBtn">Get Recommendation</button>
+                    <button type="submit" id="submitBtn">
+                        <span>Find Recommendation</span>
+                    </button>
                 </form>
             </section>
 
-            <!-- Results Display -->
-            <section id="resultSection" class="hidden">
-                <h2>Recommendation</h2>
-                <div id="loadingSpinner" class="hidden">Thinking...</div>
-                
-                <div id="outputContent">
-                    <div class="card">
-                        <div class="card-header">
-                            <span class="badge" id="resId">ID: --</span>
-                            <span class="score" id="resScore">Confidence: --%</span>
-                        </div>
-                        <h3 id="resDevice">Selected Device</h3>
-                        <p class="intent-echo">" <span id="resIntent"></span> "</p>
-                        
-                        <div class="reasoning-box">
-                            <h4>Why this phone?</h4>
-                            <p id="resReasoning">...</p>
-                        </div>
+            <!-- Results Section -->
+            <section id="resultSection" class="card result-section hidden">
+                <div id="loadingState" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Analyzing specs & user intent...</p>
+                </div>
+
+                <div id="successState" class="hidden">
+                    <div class="result-header">
+                        <div class="badge">Match Found</div>
+                        <div class="confidence" id="resConfidence">98% Confidence</div>
                     </div>
-                    
-                    <!-- Raw JSON toggle -->
-                    <details>
-                        <summary>View Raw JSON</summary>
+
+                    <h2 id="resDeviceName">Device Name</h2>
+                    <p class="intent-echo">"<span id="resIntent"></span>"</p>
+
+                    <div class="reasoning-box">
+                        <h3>💡 AI Reasoning</h3>
+                        <p id="resReasoning">Loading reasoning...</p>
+                    </div>
+
+                    <!-- Details Toggle -->
+                    <details class="debug-details">
+                        <summary>View Technical Details</summary>
                         <pre id="rawJson"></pre>
                     </details>
+                    
+                    <button class="reset-btn" onclick="location.reload()">Search Again</button>
                 </div>
             </section>
         </main>
