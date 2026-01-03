@@ -44,7 +44,7 @@ def get_device_recommendation(user_input: dict) -> dict:
     TEST_PATH = "model/data/test.csv"
     
     # use the env instead of this approch
-    API_KEY = "AIzaSyDo8UX081ZV9XwbfQ_t82wwkmwpDTEBR5Q"  
+    API_KEY = ""  
     
     # run once
     global _MODEL_CACHE
